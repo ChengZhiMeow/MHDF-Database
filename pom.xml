@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.chengzhiya</groupId>
+    <artifactId>MHDF-Database</artifactId>
+    <version>${env.project.version}</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <env.java.version>17</env.java.version>
+        <env.project.version>1.0.0</env.project.version>
+
+        <!--maven插件-->
+        <env.plugin.compiler.version>3.14.0</env.plugin.compiler.version>
+        <env.plugin.deploy.version>3.1.4</env.plugin.deploy.version>
+
+        <!--lombok-->
+        <env.lib.lombok.version>1.18.30</env.lib.lombok.version>
+
+        <!--数据库-->
+        <env.lib.ormlite.version>6.1</env.lib.ormlite.version>
+        <env.lib.hikaricp.version>6.1.0</env.lib.hikaricp.version>
+
+        <!--数据库驱动-->
+        <env.driver.mysql.version>9.1.0</env.driver.mysql.version>
+        <env.driver.h2.version>2.3.232</env.driver.h2.version>
+    </properties>
+
+    <distributionManagement>
+        <repository>
+            <id>chengzhimeow-maven-repo</id>
+            <url>https://maven.chengzhimeow.cn/releases/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>huawei-maven</id>
+            <url>https://repo.huaweicloud.com/repository/maven</url>
+        </repository>
+    </repositories>
+
+    <modules>
+        <module>MHDF-Database-API</module>
+        <module>MHDF-Database-H2</module>
+        <module>MHDF-Database-MySQL</module>
+        <module>MHDF-Database-Example</module>
+    </modules>
+</project>
