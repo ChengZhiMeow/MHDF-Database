@@ -4,24 +4,32 @@ import cn.chengzhiya.mhdfdatabase.MHDFDatabase;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.stmt.QueryBuilder;
+import lombok.Getter;
 import lombok.SneakyThrows;
 
 import java.lang.reflect.ParameterizedType;
 import java.sql.SQLException;
 import java.util.List;
 
+@Getter
 public abstract class AbstractDaoManager<V, K> {
+    private final MHDFDatabase instance;
+
     private final ThreadLocal<Dao<V, K>> daoThread =
             ThreadLocal.withInitial(() -> {
                 try {
                     ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
                     Class<V> clazz = (Class<V>) type.getActualTypeArguments()[0];
 
-                    return DaoManager.createDao(MHDFDatabase.instance.getDatabaseService().getConnectionSource(), clazz);
+                    return DaoManager.createDao(this.getInstance().getDatabaseService().getConnectionSource(), clazz);
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
             });
+
+    public AbstractDaoManager(MHDFDatabase instance) {
+        this.instance = instance;
+    }
 
     /**
      * 获取dao实例
@@ -140,7 +148,7 @@ public abstract class AbstractDaoManager<V, K> {
      */
     public void delete(V entity, boolean async) {
         if (async) {
-            MHDFDatabase.instance.getDatabaseThread().execute(() -> this.delete(entity));
+            this.getInstance().getDatabaseThread().execute(() -> this.delete(entity));
             return;
         }
 
@@ -166,7 +174,7 @@ public abstract class AbstractDaoManager<V, K> {
     @SneakyThrows
     public void update(V entity, boolean async) {
         if (async) {
-            MHDFDatabase.instance.getDatabaseThread().execute(() -> this.update(entity));
+            this.getInstance().getDatabaseThread().execute(() -> this.update(entity));
             return;
         }
 

@@ -19,8 +19,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 @Getter
 public final class MHDFDatabase {
-    public static MHDFDatabase instance;
-
     @Getter(value = AccessLevel.PRIVATE)
     private final CopyOnWriteArraySet<Class<? extends DatabaseService>> databaseServiceClassList = new CopyOnWriteArraySet<>();
     @Getter(value = AccessLevel.PRIVATE)
@@ -33,19 +31,18 @@ public final class MHDFDatabase {
 
     @SafeVarargs
     public MHDFDatabase(DatabaseConfig config, Class<? extends DatabaseService>... databaseServiceClasses) throws NoDatabaseServiceImplException {
-        instance = this;
         this.config = config;
         this.databaseServiceClassList.addAll(List.of(databaseServiceClasses));
 
         for (Class<? extends DatabaseService> clazz : this.getDatabaseServiceClassList()) {
             try {
-                this.databaseService = clazz.getConstructor().newInstance();
+                this.databaseService = clazz.getConstructor(MHDFDatabase.class).newInstance(this);
 
                 if (!this.getConfig().getType().equals(this.getDatabaseService().getType())) {
                     continue;
                 }
 
-                this.getDatabaseService().setConnectConfig(getConfig().getConnectConfig());
+                this.getDatabaseService().setConnectConfig(this.getConfig().getConnectConfig());
                 return;
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                      NoSuchMethodException e) {
@@ -53,7 +50,7 @@ public final class MHDFDatabase {
             }
         }
 
-        throw new NoDatabaseServiceImplException(getConfig().getType());
+        throw new NoDatabaseServiceImplException(this.getConfig().getType());
     }
 
     /**

@@ -31,7 +31,7 @@ public final class Main {
         mhdfDatabase.createAllTable();
         System.out.println("test_table 表创建成功!");
 
-        TestTableManager testTableManager = new TestTableManager();
+        TestTableManager testTableManager = new TestTableManager(mhdfDatabase);
 
         TestTable data = new TestTable();
         data.setUser("ChengZhiMeow");

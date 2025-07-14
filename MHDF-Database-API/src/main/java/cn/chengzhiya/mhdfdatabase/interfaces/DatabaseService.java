@@ -3,8 +3,16 @@ package cn.chengzhiya.mhdfdatabase.interfaces;
 import cn.chengzhiya.mhdfdatabase.MHDFDatabase;
 import cn.chengzhiya.mhdfdatabase.entity.DatabaseConnectConfig;
 import com.j256.ormlite.jdbc.DataSourceConnectionSource;
+import lombok.Getter;
 
+@Getter
 public abstract class DatabaseService {
+    private final MHDFDatabase instance;
+
+    public DatabaseService(MHDFDatabase instance) {
+        this.instance = instance;
+    }
+
     /**
      * 获取数据库类型
      *
@@ -28,7 +36,7 @@ public abstract class DatabaseService {
      * 连接数据库
      */
     public void connect() {
-        MHDFDatabase.instance.getDatabaseThread().start();
+        this.getInstance().getDatabaseThread().start();
         this.onConnect();
     }
 
@@ -41,7 +49,7 @@ public abstract class DatabaseService {
      * 关闭数据库连接
      */
     public void close() {
-        MHDFDatabase.instance.getDatabaseThread().kill();
+        this.getInstance().getDatabaseThread().kill();
         this.onClose();
     }
 

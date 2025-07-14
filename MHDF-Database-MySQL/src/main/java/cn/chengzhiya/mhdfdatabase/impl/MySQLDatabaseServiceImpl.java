@@ -1,5 +1,6 @@
 package cn.chengzhiya.mhdfdatabase.impl;
 
+import cn.chengzhiya.mhdfdatabase.MHDFDatabase;
 import cn.chengzhiya.mhdfdatabase.entity.DatabaseConnectConfig;
 import cn.chengzhiya.mhdfdatabase.interfaces.DatabaseService;
 import com.j256.ormlite.jdbc.DataSourceConnectionSource;
@@ -15,6 +16,10 @@ public final class MySQLDatabaseServiceImpl extends DatabaseService {
     private DatabaseConnectConfig connectConfig;
     private HikariDataSource hikariDataSource;
     private DataSourceConnectionSource connectionSource;
+
+    public MySQLDatabaseServiceImpl(MHDFDatabase instance) {
+        super(instance);
+    }
 
     @Override
     public String getType() {
