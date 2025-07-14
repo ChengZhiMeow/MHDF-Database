@@ -7,7 +7,7 @@
         <groupId>cn.chengzhiya</groupId>
         <artifactId>MHDF-Database</artifactId>
         <!--suppress MavenPropertyInParent -->
-        <version>${env.project.version}</version>
+        <version>1.0.0</version>
     </parent>
     <artifactId>MHDF-Database-API</artifactId>
 
@@ -20,10 +20,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${env.plugin.compiler.version}</version>
+                <version>3.14.0</version>
                 <configuration>
-                    <source>${env.java.version}</source>
-                    <target>${env.java.version}</target>
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
             </plugin>
         </plugins>
@@ -33,26 +33,26 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${env.lib.lombok.version}</version>
+            <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.j256.ormlite</groupId>
             <artifactId>ormlite-core</artifactId>
-            <version>${env.lib.ormlite.version}</version>
+            <version>6.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.j256.ormlite</groupId>
             <artifactId>ormlite-jdbc</artifactId>
-            <version>${env.lib.ormlite.version}</version>
+            <version>6.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>${env.lib.hikaricp.version}</version>
+            <version>6.1.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
