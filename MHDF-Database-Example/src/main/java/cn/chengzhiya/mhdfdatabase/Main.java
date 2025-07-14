@@ -19,33 +19,34 @@ public final class Main {
         config.setType("mysql");
         config.setConnectConfig(connectConfig);
 
+        MHDFDatabase mhdfDatabase;
         try {
-            MHDFDatabase mhdfDatabase = new MHDFDatabase(config, MySQLDatabaseServiceImpl.class);
+            mhdfDatabase = new MHDFDatabase(config, MySQLDatabaseServiceImpl.class);
             mhdfDatabase.getDatabaseService().connect();
-
-            mhdfDatabase.addTable(TestTable.class, "test_table");
-            mhdfDatabase.createAllTable();
-            System.out.println("test_table 表创建成功!");
-
-            TestTableManager testTableManager = new TestTableManager();
-
-            TestTable data = new TestTable();
-            data.setUser("ChengZhiMeow");
-            data.setMoney(Double.MIN_VALUE);
-
-            testTableManager.update(data);
-            System.out.println("插入数据成功!");
-
-            data.setMoney(0d);
-            testTableManager.update(data);
-            System.out.println("更新数据成功!");
-
-            testTableManager.delete(data);
-            System.out.println("删除数据成功!");
-
-            mhdfDatabase.getDatabaseService().close();
         } catch (NoDatabaseServiceImplException e) {
             throw new RuntimeException(e);
         }
+
+        mhdfDatabase.addTable(TestTable.class, "test_table");
+        mhdfDatabase.createAllTable();
+        System.out.println("test_table 表创建成功!");
+
+        TestTableManager testTableManager = new TestTableManager();
+
+        TestTable data = new TestTable();
+        data.setUser("ChengZhiMeow");
+        data.setMoney(Double.MIN_VALUE);
+
+        testTableManager.update(data);
+        System.out.println("插入数据成功!");
+
+        data.setMoney(0d);
+        testTableManager.update(data);
+        System.out.println("更新数据成功!");
+
+        testTableManager.delete(data);
+        System.out.println("删除数据成功!");
+
+        mhdfDatabase.getDatabaseService().close();
     }
 }
