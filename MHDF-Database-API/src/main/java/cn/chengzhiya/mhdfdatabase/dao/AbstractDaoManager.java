@@ -14,21 +14,20 @@ import java.util.List;
 @Getter
 public abstract class AbstractDaoManager<V, K> {
     private final MHDFDatabase instance;
-
-    private final ThreadLocal<Dao<V, K>> daoThread =
-            ThreadLocal.withInitial(() -> {
-                try {
-                    ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
-                    Class<V> clazz = (Class<V>) type.getActualTypeArguments()[0];
-
-                    return DaoManager.createDao(this.getInstance().getDatabaseService().getConnectionSource(), clazz);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            });
+    private final ThreadLocal<Dao<V, K>> daoThread;
 
     public AbstractDaoManager(MHDFDatabase instance) {
         this.instance = instance;
+        this.daoThread = ThreadLocal.withInitial(() -> {
+            try {
+                ParameterizedType type = (ParameterizedType) getClass().getGenericSuperclass();
+                Class<V> clazz = (Class<V>) type.getActualTypeArguments()[0];
+
+                return DaoManager.createDao(this.getInstance().getDatabaseService().getConnectionSource(), instance.getTableConfig(clazz));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     /**

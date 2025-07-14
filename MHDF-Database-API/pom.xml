@@ -7,7 +7,7 @@
         <groupId>cn.chengzhiya</groupId>
         <artifactId>MHDF-Database</artifactId>
         <!--suppress MavenPropertyInParent -->
-        <version>1.0.0</version>
+        <version>1.0.2</version>
     </parent>
     <artifactId>MHDF-Database-API</artifactId>
 

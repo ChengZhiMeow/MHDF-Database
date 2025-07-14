@@ -42,7 +42,7 @@ _✨基于 ORMLite 更简单、更方便的数据库实现✨_
    <dependency>
       <groupId>cn.chengzhiya</groupId>
       <artifactId>MHDF-Database-API</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
       <scope>compile</scope>
    </dependency>
 
@@ -50,13 +50,13 @@ _✨基于 ORMLite 更简单、更方便的数据库实现✨_
    <dependency>
       <groupId>cn.chengzhiya</groupId>
       <artifactId>MHDF-Database-MySQL</artifactId>
-      <version>1.0.1</version>
+      <version>1.0.2</version>
       <scope>compile</scope>
    </dependency>
    <dependency>
        <groupId>cn.chengzhiya</groupId>
        <artifactId>MHDF-Database-H2</artifactId>
-       <version>1.0.1</version>
+       <version>1.0.2</version>
        <scope>compile</scope>
    </dependency>
 </dependencies>

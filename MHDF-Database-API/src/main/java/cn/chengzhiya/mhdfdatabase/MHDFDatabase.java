@@ -13,7 +13,6 @@ import lombok.SneakyThrows;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -83,19 +82,30 @@ public final class MHDFDatabase {
     }
 
     /**
+     * 获取表配置实例
+     *
+     * @param clazz 类实例
+     * @return 表配置实例
+     */
+    @SneakyThrows
+    public DatabaseTableConfig<?> getTableConfig(Class<?> clazz) {
+        DatabaseTableConfig<?> tableConfig = DatabaseTableConfig.fromClass(
+                this.getDatabaseService().getConnectionSource().getDatabaseType(),
+                clazz
+        );
+        tableConfig.setTableName(this.getTableHashMap().get(clazz));
+
+        return tableConfig;
+    }
+
+    /**
      * 创建所有表
      */
     @SneakyThrows
     public void createAllTable() {
-        for (Map.Entry<Class<?>, String> entry : getTableHashMap().entrySet()) {
-            DatabaseTableConfig<?> tableConfig = DatabaseTableConfig.fromClass(
-                    this.getDatabaseService().getConnectionSource().getDatabaseType(),
-                    entry.getKey()
-            );
-            tableConfig.setTableName(entry.getValue());
-
+        for (Class<?> clazz : this.getTableHashMap().keySet()) {
             try {
-                TableUtils.createTableIfNotExists(this.getDatabaseService().getConnectionSource(), tableConfig);
+                TableUtils.createTableIfNotExists(this.getDatabaseService().getConnectionSource(), getTableConfig(clazz));
             } catch (Exception e) {
                 // ORMLite 中如果表存在还是会重复创建 index 索引,所以需要忽略这个报错
                 if (e.getCause() != null && e.getCause().toString().contains("Duplicate key name")) {
