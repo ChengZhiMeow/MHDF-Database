@@ -88,8 +88,8 @@ public final class MHDFDatabase {
      * @return 表配置实例
      */
     @SneakyThrows
-    public DatabaseTableConfig<?> getTableConfig(Class<?> clazz) {
-        DatabaseTableConfig<?> tableConfig = DatabaseTableConfig.fromClass(
+    public <T> DatabaseTableConfig<T> getTableConfig(Class<T> clazz) {
+        DatabaseTableConfig<T> tableConfig = DatabaseTableConfig.fromClass(
                 this.getDatabaseService().getConnectionSource().getDatabaseType(),
                 clazz
         );
