@@ -18,7 +18,6 @@ _✨基于 ORMLite 更简单、更方便的数据库实现✨_
     <a href="https://qm.qq.com/cgi-bin/qm/qr?k=yFohqtqdDeXfdPvSLY81_3dzkcjc_-Uf&jump_from=webapi&authKey=ZxYDhb/PqczeWIYXE9IUEeuSAtFyxjYUrTgwUJu74FvOcGcJgTvo/vXAUzkHBO2Q">
         <img src="https://img.shields.io/badge/QQ群-941867965-brightgreen?style=flat-square" alt="qq-group">
     </a>
-    <img src="https://img.shields.io/badge/最佳支持版本-1.21.4-brightgreen?style=flat-square" alt="minecraft-version">
     <img src="https://img.shields.io/badge/JDK-17+-brightgreen?style=flat-square" alt="jdk-version">
 </p>
 
